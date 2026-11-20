@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const paymentController_1 = require("../controllers/paymentController");
+const auth_1 = require("../middleware/auth");
+const router = (0, express_1.Router)();
+router.post('/create-qr', auth_1.authenticateToken, paymentController_1.createQROrder);
+router.get('/order-status/:orderId', auth_1.authenticateToken, paymentController_1.getOrderStatus);
+router.post('/webhook', paymentController_1.handleWebhook);
+router.post('/simulate-sandbox-payment', auth_1.authenticateToken, paymentController_1.simulateSandboxPayment);
+router.post('/cancel-subscription', auth_1.authenticateToken, paymentController_1.cancelSubscription);
+exports.default = router;
